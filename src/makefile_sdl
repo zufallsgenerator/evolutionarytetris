@@ -1,0 +1,26 @@
+
+OBJS = tetris.o windows.o
+
+
+SDL_CFLAGS = -I/usr/local/include/SDL -Dmain=SDL_main
+SDL_CONFIG = /usr/local/bin/sdl-config 
+SDL_LIBS = -L/usr/local/lib -lmingw32 -lSDLmain -lSDL -mwindows
+
+#CFLAGS = -Wall -pedantic -c -O3 -g -DMINGW $(SDL_CFLAGS)
+CFLAGS = -Wall -c -O3 -g -DMINGW $(SDL_CFLAGS)
+LIBS = $(SDL_LIBS)
+
+CC = x:/MinGW/bin/gcc
+STRIP = x:/MinGW/bin/strip
+
+default: $(OBJS)
+	$(CC)  $(OBJS) -lws2_32 -o etetris.exe $(LIBS)
+#	$(STRIP) etetris.exe 
+
+.c.o:
+	$(CC) $(CFLAGS) $<
+
+$(OBJS): tetris.c windows.c
+
+
+
